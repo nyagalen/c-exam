@@ -6,7 +6,7 @@
 /*   By: svydrina <svydrina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 20:36:43 by svydrina          #+#    #+#             */
-/*   Updated: 2024/09/01 17:39:13 by svydrina         ###   ########.fr       */
+/*   Updated: 2024/09/01 19:11:31 by svydrina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,48 +52,22 @@ void Warlock::setTitle(std::string const title)
 	this->title = title;
 }
 
+
 void Warlock::introduce() const{
 	std::cout << name << ": I am " << name << ", " << title << "!"<<std::endl;
 }
 
-void Warlock::learnSpell(ASpell *spell)
-{
-	if (spell)
-	{
-		std::vector<ASpell*>::iterator it= spells.begin();
-		while (it !=spells.end())
-		{
-			if ((*it)->getName() == spell->getName())
-				return;
-			it++;
-		}
-		spells.push_back(spell->clone());
-	}
+void Warlock::learnSpell(ASpell *spell){
+	book.learnSpell(spell);
 }
 
-void Warlock::forgetSpell(std::string spell){
-	std::vector<ASpell*>::iterator it = spells.begin();
-	while (it != spells.end())
-	{
-		if ((*it)->getName() == spell)
-		{
-			delete *it;
-			spells.erase(it);
-			return;
-		}
-		it++;
-	}
+void Warlock::forgetSpell(std::string spell)
+{
+	book.forgetSpell(spell);
 }
 
 void Warlock::launchSpell(std::string spell, ATarget &target)
 {
-	std::vector<ASpell*>::iterator it = spells.begin();
-	while (it != spells.end())
-	{
-		if ((*it)->getName()== spell)
-		{
-			(*it)->launch(target);
-		}
-		it++;
-	}
+	book.launchSpell(spell, target);
 }
+

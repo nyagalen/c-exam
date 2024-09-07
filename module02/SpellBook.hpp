@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ASpell.hpp                                         :+:      :+:    :+:   */
+/*   SpellBook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svydrina <svydrina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/31 20:59:35 by svydrina          #+#    #+#             */
-/*   Updated: 2024/09/01 17:47:03 by svydrina         ###   ########.fr       */
+/*   Created: 2024/09/01 18:21:15 by svydrina          #+#    #+#             */
+/*   Updated: 2024/09/01 18:40:23 by svydrina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #pragma once
 #include <iostream>
-#include "ATarget.hpp"
+#include <vector>
+#include "ASpell.hpp"
 
+class ASpell;
 class ATarget;
 
-class ASpell
+class SpellBook
 {
-	protected:
-		std::string name;
-		std::string effects;
-		
-	public:
-		ASpell();
-		ASpell(std::string name, std::string effects);
-		ASpell(ASpell const &copy);
-		ASpell &operator=(ASpell const &copy);
-		virtual ~ASpell();
-		std::string getName() const;
-		std::string getEffects() const;
-		virtual ASpell *clone() const = 0;
-		void launch( ATarget const &target) const;
+private:
+	SpellBook(const SpellBook &copy);
+	SpellBook &operator=(const SpellBook &copy);
+	std::vector<ASpell *> spells;
+	
+public:
+	SpellBook(/* args */);
+	~SpellBook();
+	std::vector<ASpell *> getSpells() const;
+	void learnSpell(ASpell *spell);
+	void forgetSpell(std::string spell);
+	void launchSpell(std::string spell, ATarget &target);
 };
+
+
